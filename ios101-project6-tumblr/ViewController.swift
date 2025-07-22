@@ -38,6 +38,13 @@ class ViewController: UIViewController, UITableViewDataSource {
 
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let selectedIndexPath = tableView.indexPathForSelectedRow else { return }
+        let post = posts[selectedIndexPath.row]
+        guard let detailVC = segue.destination as? DetailViewController else { return }
+        detailVC.post = post
+    }
 
     func fetchPosts() {
         let url = URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork/posts/photo?api_key=1zT8CiXGXFcQDyMFG7RtcfGLwTdDjFUJnZzKJaWTmgyK4lKGYk")!
